@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wagon Original Diner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #fdfdfd; --accent: #e63946; --text: #333; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+        
+        .header { 
+            position: relative; height: 250px; background: #000; 
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .header img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .header h1 { 
+            position: relative; font-family: 'Dancing Script', cursive; 
+            color: #fff; font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); 
+        }
+
+        .container { max-width: 500px; margin: -30px auto 50px; padding: 0 15px; position: relative; }
+        
+        .category-title { 
+            font-size: 1.4rem; color: var(--accent); margin: 40px 0 20px; 
+            border-bottom: 2px solid var(--accent); display: inline-block;
+        }
+
+        .card { 
+            background: #fff; border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 25px; 
+        }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+        .card-title { font-weight: 600; font-size: 1.1rem; }
+        .card-price { color: #27ae60; font-weight: 600; }
+        .card-desc { font-size: 0.85rem; color: #666; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <img src="local.jpg.jpg" alt="Local">
+        <h1>Wagon Diner</h1>
+    </header>
+
+    <div class="container" id="menu"></div>
+
+    <script>
+        const data = [
+            {
+                "categoria": "Burger Selection",
+                "nombre": "Classic Bacon & Cheddar",
+                "descripcion": "Doble medallón de carne premium, bacon crocante y doble cheddar en pan brioche. Con papas.",
+                "precio": 13000,
+                "imagen": "hamburguesa.jpg.jpg",
+                "disponible": true
+            },
+            {
+                "categoria": "Signature Milkshakes",
+                "nombre": "Oreo & Cream Shake",
+                "descripcion": "Batido cremoso de vainilla y Oreo, con crema chantilly y salsa de chocolate.",
+                "precio": 8500,
+                "imagen": "batido.jpg.jpg",
+                "disponible": true
+            },
+            {
+                "categoria": "Sweet Pancakes",
+                "nombre": "Fruity Tower",
+                "descripcion": "Torre de panqueques con frutas de estación, miel y un toque de crema.",
+                "precio": 12000,
+                "imagen": "panqueques.jpg.jpg",
+                "disponible": true
+            },
+            {
+                "categoria": "American Breakfast",
+                "nombre": "The Wagon Special",
+                "descripcion": "Huevos revueltos, salchichas Frankfurt, panceta grillada y tostadas de campo.",
+                "precio": 7000,
+                "imagen": "desayuno.jpg.jpg",
+                "disponible": true
+            },
+            {
+                "categoria": "Starter Favorites",
+                "nombre": "Mozzarella Sticks",
+                "descripcion": "Bastones de mozzarella rebozados con dip de salsa fileto casera.",
+                "precio": 16000,
+                "imagen": "bastones.jpg.jpg",
+                "disponible": true
+            }
+        ];
+
+        const menuCont = document.getElementById('menu');
+        const cats = [...new Set(data.map(i => i.categoria))];
+
+        cats.forEach(c => {
+            let html = `<h2 class="category-title">${c}</h2>`;
+            data.filter(p => p.categoria === c).forEach(p => {
+                html += `
+                    <div class="card">
+                        <img src="${p.imagen}">
+                        <div class="card-content">
+                            <div class="card-top">
+                                <span class="card-title">${p.nombre}</span>
+                                <span class="card-price">$${p.precio.toLocaleString('es-AR')}</span>
+                            </div>
+                            <p class="card-desc">${p.descripcion}</p>
+                        </div>
+                    </div>`;
+            });
+            menuCont.innerHTML += html;
+        });
+    </script>
+</body>
+</html>
